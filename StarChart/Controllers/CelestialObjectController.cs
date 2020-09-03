@@ -40,7 +40,6 @@ namespace StarChart.Controllers
                 return NotFound();
             }
 
-
             foreach (var o in celestialObjects)
             {
                 o.Satellites = _context.CelestialObjects.Where(y => y.OrbitedObjectId == o.Id).ToList();
@@ -53,6 +52,11 @@ namespace StarChart.Controllers
         public IActionResult GetAll()
         {
             var celestialObjects = _context.CelestialObjects;
+
+            foreach (var o in celestialObjects)
+            {
+                o.Satellites = _context.CelestialObjects.Where(y => y.OrbitedObjectId == o.Id).ToList();
+            }
 
             return Ok(celestialObjects);
         }
